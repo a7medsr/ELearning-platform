@@ -1,0 +1,36 @@
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\appsettings.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.staticwebassets.endpoints.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.exe
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.deps.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.runtimeconfig.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\ELearning Platforms.pdb
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.csproj.AssemblyReference.cache
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.AssemblyInfoInputs.cache
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.AssemblyInfo.cs
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.csproj.CoreCompileInputs.cache
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\scopedcss\bundle\ELearning Platforms.styles.css
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets\msbuild.ELearning Platforms.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets\msbuild.ELearning Platforms.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets\msbuild.build.ELearning Platforms.props
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ELearning Platforms.props
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ELearning Platforms.props
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearnin.6F176074.Up2Date
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\refint\ELearning Platforms.dll
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.pdb
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ELearning Platforms.genruntimeconfig.cache
+C:\Users\Ahmed Samir\Desktop\projects\ELearning Platforms\obj\Debug\net8.0\ref\ELearning Platforms.dll
