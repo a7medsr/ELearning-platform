@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj": {}
+    "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj": {
+    "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj",
+        "projectUniqueName": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj",
         "projectName": "ELearning Platforms",
-        "projectPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj",
+        "projectPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj",
         "packagesPath": "C:\\Users\\Ahmed Samir\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\obj\\",
+        "outputPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Scalar.AspNetCore": {
+              "target": "Package",
+              "version": "[2.1.5, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"

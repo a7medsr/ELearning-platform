@@ -1,3 +1,5 @@
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,12 +11,18 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+
+app.UseSwagger(opt =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    opt.RouteTemplate = "openapi/{documentName}.json";
+});
+app.MapScalarApiReference(opt =>
+{
+    opt.Title = "Scalar API Reference";
+    opt.Theme = ScalarTheme.Mars;
+    opt.DefaultHttpClient = new(ScalarTarget.Http, ScalarClient.Http11);
+
+});
 
 app.UseHttpsRedirection();
 

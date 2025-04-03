@@ -26,6 +26,22 @@
           }
         }
       },
+      "Scalar.AspNetCore/2.1.5": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Scalar.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "type": "package",
         "dependencies": {
@@ -338,6 +354,23 @@
         "microsoft.openapi.nuspec"
       ]
     },
+    "Scalar.AspNetCore/2.1.5": {
+      "sha512": "wjRe4oKqMYCQObQn3fTYfqumYtAUBX3I+KyXFrdu4UkjHpNsu4QrEWYahmXOdtbmHw3+w/AbuinnsLLC51dYfg==",
+      "type": "package",
+      "path": "scalar.aspnetcore/2.1.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "icon.png",
+        "lib/net8.0/Scalar.AspNetCore.dll",
+        "lib/net8.0/Scalar.AspNetCore.xml",
+        "lib/net9.0/Scalar.AspNetCore.dll",
+        "lib/net9.0/Scalar.AspNetCore.xml",
+        "scalar.aspnetcore.2.1.5.nupkg.sha512",
+        "scalar.aspnetcore.nuspec"
+      ]
+    },
     "Swashbuckle.AspNetCore/6.6.2": {
       "sha512": "+NB4UYVYN6AhDSjW0IJAd1AGD8V33gemFNLPaxKTtPkHB+HaKAKf9MGAEUPivEWvqeQfcKIw8lJaHq6LHljRuw==",
       "type": "package",
@@ -443,6 +476,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "Scalar.AspNetCore >= 2.1.5",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
   },
@@ -453,11 +487,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj",
+      "projectUniqueName": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj",
       "projectName": "ELearning Platforms",
-      "projectPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\ELearning Platforms.csproj",
+      "projectPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\ELearning Platforms.csproj",
       "packagesPath": "C:\\Users\\Ahmed Samir\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning Platforms\\obj\\",
+      "outputPath": "C:\\Users\\Ahmed Samir\\Desktop\\projects\\ELearning-platform\\ELearning Platforms\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -496,6 +530,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "Scalar.AspNetCore": {
+            "target": "Package",
+            "version": "[2.1.5, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.6.2, )"
