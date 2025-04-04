@@ -1,6 +1,10 @@
+using ELearning_Platforms.Models.DbContext;
+using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 
 // Add services to the container.
 
@@ -10,7 +14,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
 
 app.UseSwagger(opt =>
 {
