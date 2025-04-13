@@ -12,5 +12,6 @@ namespace ELearning_Platforms.Models.DbContext
         }
 
         public ELearningDbContext() { }
+      
     }
 }

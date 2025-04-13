@@ -9,6 +9,7 @@ namespace ELearning_Platforms.Models
         public string? Category { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string? ThumbnailUrl { get; set; }
+        [DataType("Money")]
         public int Price { get; set; }
     }
 }
