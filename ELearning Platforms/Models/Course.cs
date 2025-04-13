@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELearning_Platforms.Models
 {
@@ -11,5 +12,7 @@ namespace ELearning_Platforms.Models
         public string? ThumbnailUrl { get; set; }
         [DataType("Money")]
         public int Price { get; set; }
+        public Guid TeacherID { get; set; }
+        public Teacher Teacher { get; set; }
     }
 }
