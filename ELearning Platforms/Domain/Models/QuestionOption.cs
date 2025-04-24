@@ -1,11 +1,11 @@
 ﻿namespace ELearning_Platforms.Models
 {
-    public class QuestionOptions:BaseEntity
+    public class QuestionOption:BaseEntity
     {
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
-        public Guid QuestionID { get; set; }
-        public Question Question { get; set; }
+        public string QuestionId { get; set; }
+        public Question Questionn { get; set; }
 
     }
 }

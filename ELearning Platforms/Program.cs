@@ -1,3 +1,4 @@
+using ELearning_Platforms.Application.Mappings;
 using ELearning_Platforms.Models.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
@@ -5,6 +6,8 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container.
 

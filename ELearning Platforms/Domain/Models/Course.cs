@@ -12,7 +12,15 @@ namespace ELearning_Platforms.Models
         public string? ThumbnailUrl { get; set; }
         [DataType("Money")]
         public int Price { get; set; }
-        public Guid TeacherID { get; set; }
+
+        public string TeacherId { get; set; }
         public Teacher Teacher { get; set; }
+
+        public ICollection<CourseEnrollment> CourseEnrollments { get; set; }
+        public ICollection<CourseFeedback> CourseFeedbacks { get; set; }
+        public ICollection<Payment> Payments { get; set; }
+        public ICollection<Test> Tests { get; set; } 
+        public ICollection<Lesson> Lessons { get; set; }
+
     }
 }
