@@ -2,6 +2,8 @@
 using ELearning_Platforms.Application.ServicesInterfaces;
 using ELearning_Platforms.Domain.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using ELearning_Platforms.Models;
 
 namespace ELearning_Platforms.Application.Services
 {
@@ -9,11 +11,13 @@ namespace ELearning_Platforms.Application.Services
     {
         private readonly IStudentRepository _repo;
         private readonly IMapper _mapper;
+        private readonly UserManager<Student> _userManager;
 
-        public StudentService(IStudentRepository repo, IMapper mapper)
+        public StudentService(IStudentRepository repo, IMapper mapper, UserManager<Student> userManager)
         {
             _repo = repo;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         public async Task DeleteStudentAsync(string studentId)
@@ -46,22 +50,73 @@ namespace ELearning_Platforms.Application.Services
             {
                 throw new Exception("Student not found");
             }
+
             return _mapper.Map<StudentResponseDTO>(student);
         }
 
-        public Task<StudentResponseDTO> LoginAsync(StudentRegistrationDTO loginDto)
+        public async Task<StudentResponseDTO> LoginAsync(StudentRegistrationDTO loginDto)
         {
-            throw new NotImplementedException();
+            var currentStuent = await _userManager.FindByEmailAsync(loginDto.Email);
+            if (currentStuent == null)
+            {
+                return null;
+            }
+
+            var result = await _userManager.CheckPasswordAsync(currentStuent, loginDto.Password);
+
+            return _mapper.Map<StudentResponseDTO>(currentStuent);
         }
 
-        public Task<string> RegisterStudentAsync(StudentRegistrationDTO studentDto)
+        public async Task<string> RegisterStudentAsync(StudentRegistrationDTO studentDto)
         {
-            throw new NotImplementedException();
+            if(studentDto == null)
+            {
+                return "invalid student data";
+            }
+
+            var existingUserEmail = await _userManager.FindByEmailAsync(studentDto.Email);
+            if (existingUserEmail != null)
+                return "A user with this email already exist";
+
+            var existingUserName = await _userManager.FindByNameAsync(studentDto.UserName);
+            if (existingUserName != null)
+                return "This username already exist";
+
+            var newStudent = _mapper.Map<Student>(studentDto);
+
+            var result = await _userManager.CreateAsync(newStudent, studentDto.Password);
+            if (!result.Succeeded)
+                return string.Join(", ", result.Errors.Select(e => e.Description));
+
+            var roleResult = await _userManager.AddToRoleAsync(newStudent, "Student");
+            if(!roleResult.Succeeded)
+                return "Student created but failed to assign role: " + string.Join(", ", result.Errors.Select(e => e.Description));
+
+            return "Student registered successfully";
         }
 
-        public Task<string> UpdateStudentAsync(string studentId, StudentUpdateDTO updateDto)
+        public async Task<string> UpdateStudentFirstNameLastNameAsync(string studentId, StudentUpdateDTO updateDto)
         {
-            throw new NotImplementedException();
+            var currentStudent = await _userManager.FindByIdAsync(studentId);
+            if (currentStudent == null)
+                return "Student not found";
+
+            if(!string.IsNullOrWhiteSpace(updateDto.FirstName))
+            {
+                currentStudent.FirstName = updateDto.FirstName;
+            }
+
+            if(!string.IsNullOrWhiteSpace(updateDto.LastName))
+            {
+                currentStudent.LastName = updateDto.LastName;
+            }
+
+            var result = await _userManager.UpdateAsync(currentStudent);
+
+            if (result.Succeeded)
+                return "Student updated successfully";
+            else
+                return string.Join(", ", result.Errors.Select(e => e.Description));
         }
     }
 }
