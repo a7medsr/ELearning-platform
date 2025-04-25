@@ -16,10 +16,8 @@ builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServe
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services
-    .AddIdentity<Student, IdentityRole>()
-    .AddEntityFrameworkStores<ELearningDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddIdentity<Student, IdentityRole>().AddEntityFrameworkStores<ELearningDbContext>().AddDefaultTokenProviders();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 
 
