@@ -20,15 +20,16 @@ namespace ELearning_Platforms.Application.Services
             _userManager = userManager;
         }
 
-        public async Task DeleteStudentAsync(string studentId)
+        public async Task<bool> DeleteStudentAsync(string studentId)
         {
             var student = await _repo.GetStudentByIdAsync(studentId);
 
             if (student == null)
             {
-                throw new Exception("Student not found");
+                return false;
             }
             await _repo.DeleteStudentAsync(student);
+            return true;
         }
 
         public async Task<StudentResponseDTO> GetStudentByIdAsync(string Id)
@@ -39,7 +40,10 @@ namespace ELearning_Platforms.Application.Services
             {
                 throw new Exception("Student not found");
             }
-            return _mapper.Map<StudentResponseDTO>(student);
+
+            var studentResponseDTO = _mapper.Map<StudentResponseDTO>(student);
+
+            return studentResponseDTO;
         }
 
         public async Task<StudentResponseDTO> GetStudentByPhoneNumberAsync(string phoneNumber)

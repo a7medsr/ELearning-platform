@@ -1,13 +1,27 @@
 using ELearning_Platforms.Application.Mappings;
+using ELearning_Platforms.Application.Services;
+using ELearning_Platforms.Application.ServicesInterfaces;
+using ELearning_Platforms.Domain.Interfaces;
+using ELearning_Platforms.Infrastructure.Repositories;
+using ELearning_Platforms.Models;
 using ELearning_Platforms.Models.DbContext;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
-builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services
+    .AddIdentity<Student, IdentityRole>()
+    .AddEntityFrameworkStores<ELearningDbContext>()
+    .AddDefaultTokenProviders();
+
+
 
 // Add services to the container.
 
@@ -17,6 +31,23 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+    string[] roles = new[] { "Student", "Admin", "Instructor" };
+
+    foreach (var role in roles)
+    {
+        var exists = await roleManager.RoleExistsAsync(role);
+        if (!exists)
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
 
 app.UseSwagger(opt =>
 {
