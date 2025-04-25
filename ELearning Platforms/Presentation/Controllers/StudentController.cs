@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ELearning_Platforms.Application.DTOs;
+using ELearning_Platforms.Application.DTOs.Student;
 using ELearning_Platforms.Application.ServicesInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +29,7 @@ namespace ELearning_Platforms.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(string id)
         {
-            var studentDto = _studentService.GetStudentByIdAsync(id);
+            var studentDto = await _studentService.GetStudentByIdAsync(id);
             if (studentDto == null)
             {
                 return NotFound();

@@ -21,7 +21,7 @@ namespace ELearning_Platforms.Models.DbContext
             
             modelBuilder.Entity<Payment>().HasKey(e => new { e.StudentId, e.CourseId });
             modelBuilder.Entity<Payment>().HasOne(q => q.Student).WithMany(q => q.Payments).HasForeignKey(q => q.StudentId);
-            modelBuilder.Entity<Payment>().HasOne(q => q.Student).WithMany(q => q.Payments).HasForeignKey(q => q.CourseId);
+            modelBuilder.Entity<Payment>().HasOne(q => q.Course).WithMany(q => q.Payments).HasForeignKey(q => q.CourseId);
             
             modelBuilder.Entity<CourseEnrollment>().HasKey(e => new { e.StudentId, e.CourseId });
             modelBuilder.Entity<CourseEnrollment>().HasOne(q => q.Student).WithMany(q => q.CourseEnrollments).HasForeignKey(q =>q.StudentId);
@@ -29,7 +29,7 @@ namespace ELearning_Platforms.Models.DbContext
             
             modelBuilder.Entity<CourseFeedback>().HasKey(e => new { e.StudentId, e.CourseId });
             modelBuilder.Entity<CourseFeedback>().HasOne(q => q.Student).WithMany(q => q.CourseFeedbacks).HasForeignKey(q => q.StudentId);
-            modelBuilder.Entity<CourseFeedback>().HasOne(q => q.Student).WithMany(q => q.CourseFeedbacks).HasForeignKey(q => q.CourseId);
+            modelBuilder.Entity<CourseFeedback>().HasOne(q => q.Course).WithMany(q => q.CourseFeedbacks).HasForeignKey(q => q.CourseId);
             
             modelBuilder.Entity<Course>().HasOne(q => q.Teacher).WithMany(q => q.Courses).HasForeignKey(q => q.TeacherId);
             

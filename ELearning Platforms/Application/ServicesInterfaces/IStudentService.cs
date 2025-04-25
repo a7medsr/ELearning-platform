@@ -1,4 +1,4 @@
-﻿using ELearning_Platforms.Application.DTOs;
+﻿using ELearning_Platforms.Application.DTOs.Student;
 
 namespace ELearning_Platforms.Application.ServicesInterfaces
 {
@@ -10,8 +10,6 @@ namespace ELearning_Platforms.Application.ServicesInterfaces
         Task<bool> DeleteStudentAsync(string studentId);
         Task<StudentResponseDTO> GetStudentByIdAsync(string Id);
         Task<StudentResponseDTO> GetStudentByPhoneNumberAsync(string phoneNumber);
-
-
 
     }
 }

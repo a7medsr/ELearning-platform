@@ -1,9 +1,9 @@
-﻿using ELearning_Platforms.Application.DTOs;
-using ELearning_Platforms.Application.ServicesInterfaces;
+﻿using ELearning_Platforms.Application.ServicesInterfaces;
 using ELearning_Platforms.Domain.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using ELearning_Platforms.Models;
+using ELearning_Platforms.Application.DTOs.Student;
 
 namespace ELearning_Platforms.Application.Services
 {

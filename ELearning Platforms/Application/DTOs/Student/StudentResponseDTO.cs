@@ -1,4 +1,4 @@
-﻿namespace ELearning_Platforms.Application.DTOs
+﻿namespace ELearning_Platforms.Application.DTOs.Student
 {
     public class StudentResponseDTO
     {
