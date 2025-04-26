@@ -405,3 +405,43 @@ FodyWeavers.xsd
 
 # Ignore cache files
 *.cache
+
+
+# Build results
+bin/
+obj/
+
+# Build result artifacts
+*.exe
+*.app
+*.apk
+*.vsix
+
+
+# Rider
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Backup & package managers
+*.bak
+packages/
+.nuget/
+
+# Azure Web Apps
+.scm/
+
+# Visual Studio Code settings
+.vscode/
+
+# Windows image file caches
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Python environments (if you are using Python tools)
+env/
+venv/
+ENV/
