@@ -444,3 +444,11 @@ Desktop.ini
 env/
 venv/
 ENV/
+
+
+ELearning Platforms/obj/Debug/net8.0/ELearning Platforms.genruntimeconfig.cache
+*.cache
+ELearning Platforms/obj/project.nuget.cache
+/ELearning Platforms/.vs
+ELearning Platforms/appsettings.json
+/ELearning Platforms/bin
