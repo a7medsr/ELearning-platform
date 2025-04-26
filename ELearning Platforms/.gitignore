@@ -417,7 +417,6 @@ obj/
 *.apk
 *.vsix
 
-
 # Rider
 .idea/
 
