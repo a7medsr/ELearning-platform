@@ -1,6 +1,8 @@
 ﻿using ELearning_Platforms.Domain.Interfaces;
 using ELearning_Platforms.Models;
 using ELearning_Platforms.Models.DbContext;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ELearning_Platforms.Infrastructure.Repositories
@@ -8,20 +10,35 @@ namespace ELearning_Platforms.Infrastructure.Repositories
     public class StudentRepository : IStudentRepository
     {
         private readonly ELearningDbContext _context;
+        private readonly UserManager<BaseUser> _userManager;
 
-        public StudentRepository(ELearningDbContext context)
+        public StudentRepository(ELearningDbContext context, UserManager<BaseUser> userManager)
         {
             _context = context;
+            this._userManager = userManager;
         }
 
         public async Task<Student> GetStudentByIdAsync(string Id)
         {
-            return await _context.Students.FindAsync(Id);
+            var user = await _userManager.FindByIdAsync(Id);
+
+            if (user is Student student)
+            {
+                return student;
+            }
+            return null;
+
         }
 
         public async Task<Student> GetStudentByEmailAsync(string Email)
         {
-            return await _context.Students.FirstOrDefaultAsync(x => x.Email == Email);
+            var user = await _userManager.FindByEmailAsync(Email);
+
+            if (user is Student student)
+            {
+                return student;
+            }
+            return null;
         }
 
         public async Task<Student> GetStudentByPhoneNumberAsync(string PhoneNumber)
@@ -32,24 +49,23 @@ namespace ELearning_Platforms.Infrastructure.Repositories
         public async Task<IEnumerable<Student>> GetAllStudentsAsync()
         {
             return await _context.Students.ToListAsync();
+
         }
 
-        public async Task CreateStudentAsync(Student student)
+
+        public async Task<IdentityResult> CreateStudentAsync(Student user, string password)
         {
-            await _context.Students.AddAsync(student);
-            await _context.SaveChangesAsync();
+            return await _userManager.CreateAsync(user, password);
         }
 
-        public async Task DeleteStudentAsync(Student student)
+        public async Task<IdentityResult> DeleteStudentAsync(Student student)
         {
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+            return await _userManager.DeleteAsync(student);
         }
-
-        public async Task UpdateStudentAsync(Student student)
+        //did not use
+        public async Task<IdentityResult> UpdateStudentAsync(Student student)
         {
-            _context.Students.Update(student);
-            await _context.SaveChangesAsync();
+            return await _userManager.UpdateAsync(student);
         }
 
     }

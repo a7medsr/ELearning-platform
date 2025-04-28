@@ -11,25 +11,25 @@ namespace ELearning_Platforms.Application.Services
     {
         private readonly IStudentRepository _repo;
         private readonly IMapper _mapper;
-        private readonly UserManager<Student> _userManager;
+        private readonly UserManager<BaseUser> _userManager;
 
-        public StudentService(IStudentRepository repo, IMapper mapper, UserManager<Student> userManager)
+        public StudentService(IStudentRepository repo, IMapper mapper, UserManager<BaseUser> userManager)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
         }
 
-        public async Task<bool> DeleteStudentAsync(string studentId)
+        public async Task<IdentityResult> DeleteStudentAsync(string studentId)
         {
             var student = await _repo.GetStudentByIdAsync(studentId);
 
             if (student == null)
             {
-                return false;
+                return IdentityResult.Failed(new IdentityError { Description = "Invalid student data" });
             }
-            await _repo.DeleteStudentAsync(student);
-            return true;
+
+            return await _repo.DeleteStudentAsync(student);
         }
 
         public async Task<StudentResponseDTO> GetStudentByIdAsync(string Id)
@@ -49,7 +49,7 @@ namespace ELearning_Platforms.Application.Services
         public async Task<StudentResponseDTO> GetStudentByPhoneNumberAsync(string phoneNumber)
         {
             var student = await _repo.GetStudentByPhoneNumberAsync(phoneNumber);
-            
+
             if (student == null)
             {
                 throw new Exception("Student not found");
@@ -58,6 +58,8 @@ namespace ELearning_Platforms.Application.Services
             return _mapper.Map<StudentResponseDTO>(student);
         }
 
+
+        //need auth
         public async Task<StudentResponseDTO> LoginAsync(StudentRegistrationDTO loginDto)
         {
             var currentStuent = await _userManager.FindByEmailAsync(loginDto.Email);
@@ -70,57 +72,66 @@ namespace ELearning_Platforms.Application.Services
 
             return _mapper.Map<StudentResponseDTO>(currentStuent);
         }
-
-        public async Task<string> RegisterStudentAsync(StudentRegistrationDTO studentDto)
+        //need auth
+        public async Task<IdentityResult> RegisterStudentAsync(StudentRegistrationDTO studentDto)
         {
-            if(studentDto == null)
+            if (studentDto == null)
             {
-                return "invalid student data";
+                return IdentityResult.Failed(new IdentityError { Description = "Invalid student data" });
             }
 
             var existingUserEmail = await _userManager.FindByEmailAsync(studentDto.Email);
             if (existingUserEmail != null)
-                return "A user with this email already exist";
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "A user with this email already exists" });
+            }
 
             var existingUserName = await _userManager.FindByNameAsync(studentDto.UserName);
             if (existingUserName != null)
-                return "This username already exist";
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "This username already exists" });
+            }
 
             var newStudent = _mapper.Map<Student>(studentDto);
 
-            var result = await _userManager.CreateAsync(newStudent, studentDto.Password);
-            if (!result.Succeeded)
-                return string.Join(", ", result.Errors.Select(e => e.Description));
+            var result = await _repo.CreateStudentAsync(newStudent, studentDto.Password);
 
-            var roleResult = await _userManager.AddToRoleAsync(newStudent, "Student");
-            if(!roleResult.Succeeded)
-                return "Student created but failed to assign role: " + string.Join(", ", result.Errors.Select(e => e.Description));
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(newStudent, "Student");
+            }
 
-            return "Student registered successfully";
+            return result;
         }
 
-        public async Task<string> UpdateStudentFirstNameLastNameAsync(string studentId, StudentUpdateDTO updateDto)
+
+        public async Task<IdentityResult> UpdateStudentAsync(string studentId, StudentUpdateDTO updateDto)
         {
             var currentStudent = await _userManager.FindByIdAsync(studentId);
-            if (currentStudent == null)
-                return "Student not found";
 
-            if(!string.IsNullOrWhiteSpace(updateDto.FirstName))
+            if (currentStudent == null) return IdentityResult.Failed(new IdentityError { Description = "Student not found" });
+
+
+            if (!string.IsNullOrWhiteSpace(updateDto.FirstName))
             {
                 currentStudent.FirstName = updateDto.FirstName;
             }
 
-            if(!string.IsNullOrWhiteSpace(updateDto.LastName))
+            if (!string.IsNullOrWhiteSpace(updateDto.LastName))
             {
                 currentStudent.LastName = updateDto.LastName;
             }
+            if (!string.IsNullOrWhiteSpace(updateDto.UserName))
+            {
+                var existingUserName = await _userManager.FindByNameAsync(updateDto.UserName);
+                if (existingUserName != null)
+                    return IdentityResult.Failed(new IdentityError { Description = "This username already exist" });
+                currentStudent.UserName = updateDto.UserName;
+            }
 
-            var result = await _userManager.UpdateAsync(currentStudent);
+            return await _userManager.UpdateAsync(currentStudent);
 
-            if (result.Succeeded)
-                return "Student updated successfully";
-            else
-                return string.Join(", ", result.Errors.Select(e => e.Description));
+
         }
     }
 }

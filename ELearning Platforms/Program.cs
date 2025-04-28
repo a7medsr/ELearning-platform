@@ -16,9 +16,9 @@ builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServe
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddIdentity<Student, IdentityRole>().AddEntityFrameworkStores<ELearningDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<BaseUser, IdentityRole>().AddEntityFrameworkStores<ELearningDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 
 // Add services to the container.
