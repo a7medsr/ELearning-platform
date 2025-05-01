@@ -2,9 +2,12 @@
 using ELearning_Platforms.Application.DTOs.Student;
 using ELearning_Platforms.Application.ServicesInterfaces;
 using ELearning_Platforms.Domain.Interfaces;
+using ELearning_Platforms.Models;
+using ELearning_Platforms.Models.DbContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ELearning_Platforms.Presentation.Controllers
 {
@@ -13,12 +16,18 @@ namespace ELearning_Platforms.Presentation.Controllers
     public class StudentController : ControllerBase
     {
         private readonly IStudentService _studentService;
+        private readonly UserManager<BaseUser> _userManager;
+        private readonly ELearningDbContext _context;
+        
         private readonly IStudentRepository _studentRepository;
 
-        public StudentController(IStudentService studentService, IStudentRepository studentRepository)
+
+        public StudentController(ELearningDbContext context,UserManager<BaseUser> userManager, IStudentService studentService, IStudentRepository studentRepository)
         {
             _studentService = studentService;
             _studentRepository = studentRepository;
+            _userManager = userManager;
+            _context = context;
 
         }
 
@@ -70,6 +79,27 @@ namespace ELearning_Platforms.Presentation.Controllers
 
             return Ok(studentDto);
         }
+
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [HttpGet("verify-email")]
+        public async Task<IActionResult> VerifyEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);   
+            if (user == null)
+            {
+                return BadRequest(new { message = "Invalid user." });
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "Invalid or expired token." });
+            }
+
+            return Ok(new { message = "Email verified successfully!" });
+        }
+        
+
 
     }
 }

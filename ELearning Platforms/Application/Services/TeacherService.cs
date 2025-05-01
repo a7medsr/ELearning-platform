@@ -12,11 +12,13 @@ namespace ELearning_Platforms.Application.Services
         private readonly UserManager<BaseUser> _userManager;
         private readonly IMapper _mapper;  
         private readonly ITeacherRepository _teacherRepository;
-        public TeacherService(UserManager<BaseUser> userManager, IMapper mapper,ITeacherRepository teacherRepository)
+        private readonly IEmailService _emailService;
+        public TeacherService(IEmailService emailService, UserManager<BaseUser> userManager, IMapper mapper,ITeacherRepository teacherRepository)
         {
             _userManager = userManager;
             _mapper = mapper;
             _teacherRepository = teacherRepository;
+            _emailService = emailService;
         }
         
         public async Task<IdentityResult> RegisterTeacherAsync(TeacherRegistrationDTO teacherDto)
@@ -45,6 +47,7 @@ namespace ELearning_Platforms.Application.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(newTeacher, "Teacher");
+                _emailService.verifyAsync(newTeacher);
             }
 
             return result;
@@ -102,7 +105,7 @@ namespace ELearning_Platforms.Application.Services
 
             return _mapper.Map<TeacherResponseDTO>(currentTeacher);
         }
-       
+      
 
 
         public async Task<IdentityResult> UpdateTeacherAsync(string teacherId, TeacherUpdateDTO updateDto)
@@ -137,6 +140,7 @@ namespace ELearning_Platforms.Application.Services
 
 
         }
-     
+
+        
     }
 }

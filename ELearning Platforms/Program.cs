@@ -16,11 +16,17 @@ builder.Services.AddDbContext<ELearningDbContext>(options => options.UseSqlServe
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddIdentity<BaseUser, IdentityRole>().AddEntityFrameworkStores<ELearningDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
-
-
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IAuthServices, AuthServices>();
+builder.Services.AddIdentity<BaseUser, IdentityRole>(options =>
+{
+    options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+    options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+})
+                .AddEntityFrameworkStores<ELearningDbContext>()
+                .AddDefaultTokenProviders();
 // Add services to the container.
 
 builder.Services.AddControllers();

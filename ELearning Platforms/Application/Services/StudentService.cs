@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using ELearning_Platforms.Models;
 using ELearning_Platforms.Application.DTOs.Student;
+using System.Net;
 
 namespace ELearning_Platforms.Application.Services
 {
@@ -12,12 +13,15 @@ namespace ELearning_Platforms.Application.Services
         private readonly IStudentRepository _repo;
         private readonly IMapper _mapper;
         private readonly UserManager<BaseUser> _userManager;
+        private readonly IEmailService _emailService;
 
-        public StudentService(IStudentRepository repo, IMapper mapper, UserManager<BaseUser> userManager)
+
+        public StudentService(IEmailService emailService, IStudentRepository repo, IMapper mapper, UserManager<BaseUser> userManager)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         public async Task<IdentityResult> DeleteStudentAsync(string studentId)
@@ -99,6 +103,9 @@ namespace ELearning_Platforms.Application.Services
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(newStudent, "Student");
+               
+                _emailService.verifyAsync(newStudent);
+
             }
 
             return result;
