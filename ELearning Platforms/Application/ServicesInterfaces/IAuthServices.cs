@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ELearning_Platforms.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ELearning_Platforms.Application.ServicesInterfaces
 {
@@ -6,5 +7,6 @@ namespace ELearning_Platforms.Application.ServicesInterfaces
     {
         Task<string> ForgotPassword(string email);
         Task<IdentityResult> ChangePassword(string email, string oldpass, string newpass);
+        Task<string> GenerateToken(BaseUser user);
     }
 }

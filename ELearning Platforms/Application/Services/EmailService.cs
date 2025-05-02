@@ -138,7 +138,7 @@ namespace ELearning_Platforms.Application.Services
         <div class='content'>
             Thank you for signing up. Please click the button below to verify your email address.
         </div>
-        <a href='https://localhost:7225/api/Student/{url}' class='btn'>Verify Email</a>
+        <a href='https://localhost:7225/api/Auth/{url}' class='btn'>Verify Email</a>
         <div class='footer'>
             If you did not create an account, please ignore this email.
         </div>

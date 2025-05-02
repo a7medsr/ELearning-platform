@@ -1,6 +1,7 @@
 ﻿using ELearning_Platforms.Application.DTOs.Teacher;
 using ELearning_Platforms.Application.Services;
 using ELearning_Platforms.Application.ServicesInterfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +9,14 @@ namespace ELearning_Platforms.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Teacher")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> RegisterTeacher([FromBody] TeacherRegistrationDTO teacherDto)
-        {
-            if (teacherDto == null)
-            {
-                return BadRequest("Invalid teacher data");
-            }
-            var result = await _teacherService.RegisterTeacherAsync(teacherDto);
-            if (result.Succeeded)
-            {
-                return Ok("Teacher registered successfully");
-            }
-            return BadRequest(result.Errors.Select(s => s.Description));
         }
 
         [HttpPut("{id}")]
