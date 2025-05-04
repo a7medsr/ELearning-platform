@@ -30,7 +30,8 @@ builder.Services.AddIdentity<BaseUser, IdentityRole>(options =>
 })
                 .AddEntityFrameworkStores<ELearningDbContext>()
                 .AddDefaultTokenProviders();
-
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseServices>();
 
 builder.Services.AddAuthentication(options =>
 {
