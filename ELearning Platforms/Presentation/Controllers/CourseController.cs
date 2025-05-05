@@ -56,20 +56,8 @@ namespace ELearning_Platforms.Presentation.Controllers
                 return BadRequest("Teacher ID is missing or invalid.");
             }
 
-            var result = await _courseService.DeleteCourseAsync(id, teacherId);
-
-            if (result == "Course not found.")
-            {
-                return NotFound(result);
-            }
-            else if (result == "You are not authorized to delete this course.")
-            {
-                return Forbid(result); 
-            }
-            else if (result.StartsWith("Failed"))
-            {
-                return StatusCode(500, result); 
-            }
+            string result = await _courseService.DeleteCourseAsync(id, teacherId);
+            if(result!= "Course deleted successfully.")return BadRequest(result);
 
             return Ok(new { Message = result });
         }
@@ -85,25 +73,29 @@ namespace ELearning_Platforms.Presentation.Controllers
                 return BadRequest("Student ID is missing or invalid.");
             }
 
-            var result = await _courseService.EnrollStudentAsync(courseId, studentId);
+            var result = await _courseService.EnrollStudentAsync( studentId, courseId);
 
-            if (result == "Course not found.")
-            {
-                return NotFound(result);
-            }
-            else if (result == "You are already enrolled in this course.")
-            {
-                return BadRequest(result);
-            }
-            else if (result.StartsWith("Failed"))
-            {
-                return StatusCode(500, result);
-            }
-
-            return Ok(new { Message = "Enrollment successful", CourseId = courseId });
+            if (result != "Enrollment successful") return BadRequest(result);
+            return Ok(result);
         }
 
-
+        [HttpPut("UpdateCourse")]
+        [Authorize(Roles = "Teacher", AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> UpdateCourse([FromBody] UpdateCourseDTO course,string courseId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            string? teacherId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(teacherId))
+            {
+                return BadRequest("Teacher ID is missing or invalid.");
+            }
+            var result = await _courseService.UpdateCourseAsync(course,courseId, teacherId);
+            if (result != "Course updated successfully.") return BadRequest(result);
+            return Ok(new { Message = result });
+        }
 
     }
 }

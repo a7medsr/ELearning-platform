@@ -31,10 +31,11 @@ namespace ELearning_Platforms.Infrastructure.Repositories
             return await _context.Courses.AnyAsync(c => c.Title == title && c.TeacherId.ToString() == teacherId);
         }
 
-        public async Task UpdateCourseAsync(Course course)
+        public async Task<bool> UpdateCourseAsync(Course updatedCourse)
         {
-            _context.Courses.Update(course);
-            await _context.SaveChangesAsync();
+            _context.Courses.Update(updatedCourse);
+            var result=  _context.SaveChanges();
+            return result > 0;
         }
         public async Task DeleteCourseAsync(string id)
         {
@@ -52,6 +53,20 @@ namespace ELearning_Platforms.Infrastructure.Repositories
             return await _context.CourseEnrollment.AnyAsync(e =>
                 e.StudentId == studentId && e.CourseId == courseId);
         }
+        public async Task<bool> IsThereAnyEnrollmentInCourseAsync(string courseId)
+        {
+            var course = await _context.Courses
+                .Include(c => c.CourseEnrollments)
+                .FirstOrDefaultAsync(c => c.Id == courseId);
+
+            if (course != null && course.CourseEnrollments != null && course.CourseEnrollments.Any())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
 
         public async Task EnrollStudentAsync(CourseEnrollment enrollment)
         {

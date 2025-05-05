@@ -15,12 +15,13 @@ namespace ELearning_Platforms.Domain.Interfaces
         Task<bool> CourseTitleExistsAsync(string title, string teacherId);
 
 
-       Task UpdateCourseAsync(Course course);
+       Task<bool>UpdateCourseAsync(Course updatedCourse);
         Task AddCourseAsync(Course course);
         Task DeleteCourseAsync(string id);
 
         Task EnrollStudentAsync(CourseEnrollment enrollment);
         Task<bool> IsStudentEnrolledAsync(string studentId, string courseId);
+        Task<bool> IsThereAnyEnrollmentInCourseAsync(string courseId);
 
     }
 }
